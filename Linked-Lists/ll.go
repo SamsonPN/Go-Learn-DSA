@@ -9,8 +9,9 @@ func NewRemoveErr(msg string, data any) error {
 }
 
 type Node struct {
-	data any
-	next *Node
+	Data any
+	Next *Node
+	Prev *Node
 }
 
 type LinkedList struct {
@@ -25,7 +26,7 @@ func (ll *LinkedList) add(node *Node) {
 
 	temp := ll.head
 	ll.head = node
-	node.next = temp
+	node.Next = temp
 }
 
 /*
@@ -35,9 +36,9 @@ func (ll *LinkedList) remove(data any) error {
 	var prev *Node
 	current := ll.head
 
-	for current != nil && current.data != data {
+	for current != nil && current.Data != data {
 		prev = current
-		current = current.next
+		current = current.Next
 	}
 
 	if current == nil {
@@ -45,9 +46,9 @@ func (ll *LinkedList) remove(data any) error {
 	}
 
 	if prev == nil {
-		ll.head = ll.head.next
+		ll.head = ll.head.Next
 	} else {
-		prev.next = current.next
+		prev.Next = current.Next
 	}
 	return nil
 }

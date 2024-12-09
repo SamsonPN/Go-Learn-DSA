@@ -6,20 +6,20 @@ import (
 
 func TestNode(t *testing.T) {
 
-	t.Run("initializing node with only data", func(t *testing.T) {
-		node := Node{data: 1}
+	t.Run("initializing node with only Data", func(t *testing.T) {
+		node := Node{Data: 1}
 
-		if node.data != 1 || node.next != nil {
-			t.Error("node does not have correct initialized data")
+		if node.Data != 1 || node.Next != nil {
+			t.Error("node does not have correct initialized Data")
 		}
 	})
 
-	t.Run("initializing node's next with another node", func(t *testing.T) {
-		nextNode := Node{data: 2}
-		node := Node{next: &nextNode}
+	t.Run("initializing node's Next with another node", func(t *testing.T) {
+		NextNode := Node{Data: 2}
+		node := Node{Next: &NextNode}
 
-		if node.next != &nextNode && node.next.data != 2 {
-			t.Error("Unable to access the next node or its data")
+		if node.Next != &NextNode && node.Next.Data != 2 {
+			t.Error("Unable to access the Next node or its Data")
 		}
 	})
 }
@@ -27,48 +27,48 @@ func TestNode(t *testing.T) {
 func TestLinkedList(t *testing.T) {
 	t.Run("add one node to linked list", func(t *testing.T) {
 		linkedList := LinkedList{head: nil}
-		node := Node{data: 31}
+		node := Node{Data: 31}
 		linkedList.add(&node)
 
 		if linkedList.head == nil {
 			t.Fatal("the linked list did not initialize properly")
 		}
-		if linkedList.head.data != 31 {
+		if linkedList.head.Data != 31 {
 			t.Error("the linked list did not add a new node properly")
 		}
 	})
 	t.Run("add multiple nodes to linked list", func(t *testing.T) {
 		linkedList := LinkedList{head: nil}
-		data := []int{31, 77, 17, 93, 26, 54}
+		Data := []int{31, 77, 17, 93, 26, 54}
 
-		for _, val := range data {
-			node := Node{data: val}
+		for _, val := range Data {
+			node := Node{Data: val}
 			linkedList.add(&node)
 		}
 
 		current := linkedList.head
-		count := len(data) - 1
+		count := len(Data) - 1
 		for current != nil {
-			if current.data != data[count] {
-				t.Errorf("linked list nodes are not linked correctly. we want %d, but got %d", data[count], current.data)
+			if current.Data != Data[count] {
+				t.Errorf("linked list nodes are not linked correctly. we want %d, but got %d", Data[count], current.Data)
 			}
-			current = current.next
+			current = current.Next
 			count--
 		}
 	})
 
 	t.Run("remove node from linkedlist", func(t *testing.T) {
 		linkedList := LinkedList{head: nil}
-		data := []int{31, 77, 17}
+		Data := []int{31, 77, 17}
 
-		for _, val := range data {
-			node := Node{data: val}
+		for _, val := range Data {
+			node := Node{Data: val}
 			linkedList.add(&node)
 		}
 
 		table := []struct {
 			test   string
-			data   int
+			Data   int
 			errMsg string
 			err    error
 		}{
@@ -80,14 +80,14 @@ func TestLinkedList(t *testing.T) {
 
 		for _, testcase := range table {
 			t.Run(testcase.test, func(t *testing.T) {
-				err := linkedList.remove(testcase.data)
+				err := linkedList.remove(testcase.Data)
 
 				if err != nil && err.Error() != testcase.err.Error() {
 					t.Errorf("Expected error: %v, but got: %v", testcase.err, err)
 				}
 
 				if testcase.err == nil && err != nil {
-					t.Errorf("Could not find item %d in Linked List to remove", testcase.data)
+					t.Errorf("Could not find item %d in Linked List to remove", testcase.Data)
 				}
 			})
 		}
