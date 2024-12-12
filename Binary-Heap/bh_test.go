@@ -60,6 +60,12 @@ func TestBinaryHeap(t *testing.T) {
 			t.Fatal("expected an error but didn't get one")
 		}
 	})
+
+	/**
+	TODO:
+	1. heapify method to turn []T into a heap
+	2. add a comparator field in the struct to let people choose min or max heap
+	*/
 }
 
 func assertCorrectRoot(t testing.TB, b *BinaryHeap[int], expected int) {
