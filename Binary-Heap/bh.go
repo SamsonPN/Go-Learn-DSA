@@ -3,17 +3,9 @@ package BinaryHeap
 import (
 	"fmt"
 
+	Utility "github.com/SamsonPN/Go-Learn-DSA/utility"
 	constraints "golang.org/x/exp/constraints"
 )
-
-/*
-*
-put this into a utility folder later!
-*/
-func generateZeroValue[T any]() T {
-	var zeroValue T
-	return zeroValue
-}
 
 type BinaryHeap[T constraints.Ordered] struct {
 	heap       []T
@@ -82,14 +74,14 @@ func (b *BinaryHeap[T]) Insert(val T) {
 
 func (b *BinaryHeap[T]) Peek() (T, bool) {
 	if b.size == 0 {
-		return generateZeroValue[T](), false
+		return Utility.GenerateZeroValue[T](), false
 	}
 	return b.heap[0], true
 }
 
 func (b *BinaryHeap[T]) Delete() (T, error) {
 	if b.size == 0 {
-		return generateZeroValue[T](), fmt.Errorf("trying to delete from an empty heap")
+		return Utility.GenerateZeroValue[T](), fmt.Errorf("trying to delete from an empty heap")
 	}
 
 	res, _ := b.Peek()

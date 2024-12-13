@@ -2,12 +2,8 @@ package Queue
 
 import (
 	LinkedList "github.com/SamsonPN/Go-Learn-DSA/Linked-Lists"
+	Utility "github.com/SamsonPN/Go-Learn-DSA/utility"
 )
-
-func generateZeroValue[T any]() T {
-	var zeroValue T
-	return zeroValue
-}
 
 type Queue[T comparable] struct {
 	head *LinkedList.Node[T]
@@ -31,7 +27,7 @@ func (q *Queue[T]) Add(val T) {
 
 func (q *Queue[T]) Peek() (T, bool) {
 	if q.size == 0 {
-		return generateZeroValue[T](), true
+		return Utility.GenerateZeroValue[T](), true
 	}
 
 	return q.head.Data, false
@@ -39,7 +35,7 @@ func (q *Queue[T]) Peek() (T, bool) {
 
 func (q *Queue[T]) Remove() (T, bool) {
 	if q.size == 0 {
-		return generateZeroValue[T](), true
+		return Utility.GenerateZeroValue[T](), true
 	}
 
 	result := q.head.Data
