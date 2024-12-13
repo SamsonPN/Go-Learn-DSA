@@ -1,6 +1,8 @@
 package BinaryHeap
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestBinaryHeap(t *testing.T) {
 	t.Run("insert one value", func(t *testing.T) {
@@ -60,12 +62,29 @@ func TestBinaryHeap(t *testing.T) {
 			t.Fatal("expected an error but didn't get one")
 		}
 	})
+	t.Run("heapify from a slice", func(t *testing.T) {
+		b := BinaryHeap[int]{}
+		input := []int{3, 6, 9, -1, 10, 2, 4, 5, 8, 7, 11, 0, 1}
 
-	/**
-	TODO:
-	1. heapify method to turn []T into a heap
-	2. add a comparator field in the struct to let people choose min or max heap
-	*/
+		b.Heapify(input)
+
+		for i := -1; i < 5; i++ {
+			val, _ := b.Delete()
+			if val != i {
+				t.Errorf("heapify failed: got %d, want %d", val, i)
+			}
+		}
+	})
+}
+
+func TestMaxBinaryHeap(t *testing.T) {
+	b := BinaryHeap[int]{
+		comparator: func(a, b int) bool {
+			return a <= b
+		},
+	}
+
+	b.Insert(1)
 }
 
 func assertCorrectRoot(t testing.TB, b *BinaryHeap[int], expected int) {
