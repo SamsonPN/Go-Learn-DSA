@@ -4,14 +4,19 @@ import (
 	LinkedList "github.com/SamsonPN/Go-Learn-DSA/Linked-Lists"
 )
 
-type Queue struct {
-	head *LinkedList.Node
-	tail *LinkedList.Node
+func generateZeroValue[T any]() T {
+	var zeroValue T
+	return zeroValue
+}
+
+type Queue[T comparable] struct {
+	head *LinkedList.Node[T]
+	tail *LinkedList.Node[T]
 	size int
 }
 
-func (q *Queue) Add(val any) {
-	newNode := &LinkedList.Node{Data: val}
+func (q *Queue[T]) Add(val T) {
+	newNode := &LinkedList.Node[T]{Data: val}
 	if q.size == 0 {
 		q.head = newNode
 		q.tail = newNode
@@ -24,17 +29,17 @@ func (q *Queue) Add(val any) {
 	q.size++
 }
 
-func (q *Queue) Peek() (any, bool) {
+func (q *Queue[T]) Peek() (T, bool) {
 	if q.size == 0 {
-		return 0, true
+		return generateZeroValue[T](), true
 	}
 
 	return q.head.Data, false
 }
 
-func (q *Queue) Remove() (any, bool) {
+func (q *Queue[T]) Remove() (T, bool) {
 	if q.size == 0 {
-		return 0, true
+		return generateZeroValue[T](), true
 	}
 
 	result := q.head.Data

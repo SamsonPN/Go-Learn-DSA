@@ -7,7 +7,7 @@ import (
 func TestNode(t *testing.T) {
 
 	t.Run("initializing node with only Data", func(t *testing.T) {
-		node := Node{Data: 1}
+		node := Node[int]{Data: 1}
 
 		if node.Data != 1 || node.Next != nil {
 			t.Error("node does not have correct initialized Data")
@@ -15,8 +15,8 @@ func TestNode(t *testing.T) {
 	})
 
 	t.Run("initializing node's Next with another node", func(t *testing.T) {
-		NextNode := Node{Data: 2}
-		node := Node{Next: &NextNode}
+		NextNode := Node[int]{Data: 2}
+		node := Node[int]{Next: &NextNode}
 
 		if node.Next != &NextNode && node.Next.Data != 2 {
 			t.Error("Unable to access the Next node or its Data")
@@ -26,8 +26,8 @@ func TestNode(t *testing.T) {
 
 func TestLinkedList(t *testing.T) {
 	t.Run("add one node to linked list", func(t *testing.T) {
-		linkedList := LinkedList{head: nil}
-		node := Node{Data: 31}
+		linkedList := LinkedList[int]{head: nil}
+		node := Node[int]{Data: 31}
 		linkedList.add(&node)
 
 		if linkedList.head == nil {
@@ -38,11 +38,11 @@ func TestLinkedList(t *testing.T) {
 		}
 	})
 	t.Run("add multiple nodes to linked list", func(t *testing.T) {
-		linkedList := LinkedList{head: nil}
+		linkedList := LinkedList[int]{head: nil}
 		Data := []int{31, 77, 17, 93, 26, 54}
 
 		for _, val := range Data {
-			node := Node{Data: val}
+			node := Node[int]{Data: val}
 			linkedList.add(&node)
 		}
 
@@ -58,11 +58,11 @@ func TestLinkedList(t *testing.T) {
 	})
 
 	t.Run("remove node from linkedlist", func(t *testing.T) {
-		linkedList := LinkedList{head: nil}
+		linkedList := LinkedList[int]{head: nil}
 		Data := []int{31, 77, 17}
 
 		for _, val := range Data {
-			node := Node{Data: val}
+			node := Node[int]{Data: val}
 			linkedList.add(&node)
 		}
 

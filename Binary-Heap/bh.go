@@ -6,6 +6,10 @@ import (
 	constraints "golang.org/x/exp/constraints"
 )
 
+/*
+*
+put this into a utility folder later!
+*/
 func generateZeroValue[T any]() T {
 	var zeroValue T
 	return zeroValue

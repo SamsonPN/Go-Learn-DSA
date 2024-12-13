@@ -4,7 +4,7 @@ import "testing"
 
 func TestQueue(t *testing.T) {
 	t.Run("add one value", func(t *testing.T) {
-		queue := Queue{}
+		queue := Queue[int]{}
 		queue.Add(1)
 
 		val, isEmpty := queue.Peek()
@@ -17,7 +17,7 @@ func TestQueue(t *testing.T) {
 		}
 	})
 	t.Run("add multiple values", func(t *testing.T) {
-		queue := Queue{}
+		queue := Queue[int]{}
 		queue.Add(1)
 		queue.Add(2)
 		queue.Add(3)
@@ -32,7 +32,7 @@ func TestQueue(t *testing.T) {
 		}
 	})
 	t.Run("delete one value", func(t *testing.T) {
-		queue := Queue{}
+		queue := Queue[int]{}
 		queue.Add(1)
 		queue.Add(2)
 		queue.Add(3)
@@ -48,7 +48,7 @@ func TestQueue(t *testing.T) {
 
 	})
 	t.Run("delete multiple values", func(t *testing.T) {
-		queue := Queue{}
+		queue := Queue[int]{}
 		queue.Add(1)
 		queue.Add(2)
 		queue.Add(3)
@@ -65,7 +65,7 @@ func TestQueue(t *testing.T) {
 		}
 	})
 	t.Run("delete from empty queue", func(t *testing.T) {
-		queue := Queue{}
+		queue := Queue[int]{}
 		queue.Add(1)
 		queue.Add(2)
 

@@ -8,17 +8,17 @@ func NewRemoveErr(msg string, data any) error {
 	return fmt.Errorf("%v: %v", msg, data)
 }
 
-type Node struct {
-	Data any
-	Next *Node
-	Prev *Node
+type Node[T comparable] struct {
+	Data T
+	Next *Node[T]
+	Prev *Node[T]
 }
 
-type LinkedList struct {
-	head *Node
+type LinkedList[T comparable] struct {
+	head *Node[T]
 }
 
-func (ll *LinkedList) add(node *Node) {
+func (ll *LinkedList[T]) add(node *Node[T]) {
 	if ll.head == nil {
 		ll.head = node
 		return
@@ -32,8 +32,8 @@ func (ll *LinkedList) add(node *Node) {
 /*
 https://runestone.academy/ns/books/published/pythonds3/BasicDS/TheUnorderedListAbstractDataType.html
 */
-func (ll *LinkedList) remove(data any) error {
-	var prev *Node
+func (ll *LinkedList[T]) remove(data T) error {
+	var prev *Node[T]
 	current := ll.head
 
 	for current != nil && current.Data != data {
