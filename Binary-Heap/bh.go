@@ -26,7 +26,7 @@ func (b *BinaryHeap[T]) percolateUp(index int) {
 	parent := (index - 1) / 2
 
 	for child != 0 {
-		if b.heap[parent] <= b.heap[child] {
+		if b.comparator(b.heap[parent], b.heap[child]) {
 			return
 		}
 		b.heap[parent], b.heap[child] = b.heap[child], b.heap[parent]
@@ -47,26 +47,27 @@ func (b *BinaryHeap[T]) percolateDown(i int) {
 		}
 
 		if rightChild >= b.size {
-			if b.heap[parent] <= b.heap[leftChild] {
+			if b.comparator(b.heap[parent], b.heap[leftChild]) {
 				return
 			}
 			b.heap[parent], b.heap[leftChild] = b.heap[leftChild], b.heap[parent]
 			parent = leftChild
 			continue
 		}
-		var minChild int
-		if b.heap[leftChild] <= b.heap[rightChild] {
-			minChild = leftChild
+		var chosenChild int
+		if b.comparator(b.heap[leftChild], b.heap[rightChild]) {
+			chosenChild = leftChild
 		} else {
-			minChild = rightChild
+			chosenChild = rightChild
 		}
 
-		if b.heap[parent] <= b.heap[minChild] {
+		if b.comparator(b.heap[parent], b.heap[chosenChild]) {
 			return
 		}
 
-		b.heap[parent], b.heap[minChild] = b.heap[minChild], b.heap[parent]
-		parent = minChild
+		b.heap[parent], b.heap[chosenChild] = b.heap[chosenChild], b.heap[parent]
+		parent = chosenChild
+
 	}
 }
 
