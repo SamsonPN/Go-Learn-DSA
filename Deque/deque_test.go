@@ -9,7 +9,7 @@ func TestDeque(t *testing.T) {
 	t.Run("adding items to front of Deque", func(t *testing.T) {
 		d := Deque[any]{}
 		initializeDeque(d.AddFront)
-		want := d.items[0]
+		want := d.Items()[0]
 		got, _ := d.PeekFront()
 		assertEqual(t, got, want)
 	})
@@ -25,7 +25,7 @@ func TestDeque(t *testing.T) {
 	t.Run("adding items to back of Deque", func(t *testing.T) {
 		d := Deque[any]{}
 		initializeDeque(d.AddRear)
-		want := d.items[d.Size()-1]
+		want := d.Items()[d.Size()-1]
 		got, _ := d.PeekRear()
 		assertEqual(t, got, want)
 	})
@@ -41,7 +41,9 @@ func TestDeque(t *testing.T) {
 	t.Run("removing from the front of deque", func(t *testing.T) {
 		d := Deque[any]{}
 		initializeDeque(d.AddFront)
-		want := d.items[0]
+		original := append(make([]any, 0, len(d.Items())), d.Items()...)
+
+		want := d.Items()[0]
 		initialSize := d.Size()
 		got, _ := d.RemoveFront()
 
@@ -50,13 +52,21 @@ func TestDeque(t *testing.T) {
 		}
 		assertEqual(t, got, want)
 
-		// issue: how do we know that our deletion actually worked?
-		// how can we solve this issue if we have duplicates?
+		if d.Size() > 1 {
+			for i := range d.Size() {
+				if original[i+1] != d.Items()[i] {
+					t.Errorf("RemoveFront operation failed! original is %v, and current is %v", original, d.Items())
+					break
+				}
+			}
+		}
 	})
 	t.Run("removing from the rear of deque", func(t *testing.T) {
 		d := Deque[any]{}
 		initializeDeque(d.AddRear)
-		want := d.items[d.Size()-1]
+		original := append(make([]any, 0, len(d.Items())), d.Items()...)
+
+		want := d.Items()[d.Size()-1]
 		initialSize := d.Size()
 		got, _ := d.RemoveRear()
 
@@ -64,6 +74,14 @@ func TestDeque(t *testing.T) {
 			t.Fatal("RemoveRear operation failed")
 		}
 		assertEqual(t, got, want)
+		if d.Size() > 1 {
+			for i := range d.Size() {
+				if original[i] != d.Items()[i] {
+					t.Errorf("RemoveRear operation failed! original is %v, and current is %v", original, d.Items())
+					break
+				}
+			}
+		}
 	})
 }
 

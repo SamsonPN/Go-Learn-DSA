@@ -37,7 +37,7 @@ func (d *Deque[T]) RemoveFront() (T, bool) {
 		return Utility.GenerateZeroValue[T](), true
 	}
 	returnVal := d.items[0]
-	d.items = d.items[:d.Size()-1]
+	d.items = d.items[1:]
 	return returnVal, false
 }
 
@@ -46,7 +46,12 @@ func (d *Deque[T]) RemoveRear() (T, bool) {
 		return Utility.GenerateZeroValue[T](), true
 	}
 	returnVal := d.items[d.Size()-1]
+	d.items = d.items[:d.Size()-1]
 	return returnVal, false
+}
+
+func (d *Deque[T]) Items() []T {
+	return d.items
 }
 
 func (d *Deque[T]) Size() int {
