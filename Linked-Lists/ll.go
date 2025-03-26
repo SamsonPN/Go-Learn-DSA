@@ -29,9 +29,6 @@ func (ll *LinkedList[T]) add(node *Node[T]) {
 	node.Next = temp
 }
 
-/*
-https://runestone.academy/ns/books/published/pythonds3/BasicDS/TheUnorderedListAbstractDataType.html
-*/
 func (ll *LinkedList[T]) remove(data T) error {
 	var prev *Node[T]
 	current := ll.head
